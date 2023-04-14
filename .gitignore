@@ -1,5 +1,5 @@
 .venv/
 __pycache__/
 
-2_unix/*.txt
-!2_unix/popular-names.txt
+02_unix/*.txt
+!02_unix/popular-names.txt
