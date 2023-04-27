@@ -4,9 +4,11 @@ https://nlp100.github.io/en/ch04.html#39-zipfs-law
 """
 
 from load_data import load_data
+import matplotlib
 import matplotlib.pyplot as plt
 # needed for displaying Japanese character
 import japanize_matplotlib
+matplotlib.use('Svg')
 
 tokens = load_data()
 
@@ -38,4 +40,4 @@ ax.set_title('[39] Zipf\'s law')
 
 # you can choose to save or show graph. Choosing both at once do not work
 # plt.show()
-plt.savefig("result_39_zipfs_law.png")
+plt.savefig("result_39_zipfs_law.svg")

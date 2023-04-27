@@ -13,9 +13,11 @@ https://nlp100.github.io/en/ch04.html#37-top-ten-words-co-occurring-with-alice
 import itertools
 from typing import Literal
 from load_data import Token, load_data
+import matplotlib
 import matplotlib.pyplot as plt
 # needed for displaying Japanese character
 import japanize_matplotlib
+matplotlib.use('Svg')
 
 TARGET_WORD = "猫"
 # define stop words by their POS
@@ -122,4 +124,4 @@ fig.suptitle(f'[37] Top {TOP_N} cooccuring words with {TARGET_WORD}')
 
 # you can choose to save or show graph. Choosing both at once do not work
 # plt.show()
-plt.savefig(f"result_37_top_{TOP_N}_cooccuring_words.png")
+plt.savefig(f"result_37_top_{TOP_N}_cooccuring_words.svg")
