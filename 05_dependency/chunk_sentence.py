@@ -149,3 +149,17 @@ class Sentece(object):
 
         walk_tree(self.tree, 0)
         return "\n".join(rows)
+
+    def gather_chunks_to_root(self, origin_id: int) -> list[Chunk]:
+        path: list[Chunk] = []
+
+        def up_tree(child_id):
+            child_chunk = self.find_chunk_by_id(child_id)
+            if child_chunk == None:
+                return
+
+            path.append(child_chunk)
+            up_tree(child_chunk.dst)
+
+        up_tree(origin_id)
+        return path

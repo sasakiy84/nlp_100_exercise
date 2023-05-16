@@ -40,12 +40,12 @@ for sentence_node in root:
                     cases.append(morph.surface)
 
         cases.sort()
-        tab_separeted_cases = "\t".join(cases)
+        space_separated_cases = " ".join(cases)
 
-        print(f"{verb_morph.base}\t{tab_separeted_cases}")
+        print(f"{verb_morph.base} {space_separated_cases}")
 
 # unix command comfilmination
 # python 45_extract_verb_case.py | sort | uniq -c | sort -nr | head -n 10
 # python 45_extract_verb_case.py | sort | uniq -c | sort -nr | grep "行う"
-# python 45_extract_verb_case.py | sort | uniq -c | sort -nr | grep "[[:space:]]なる" # 「なる」 hits also 「異なる」
+# python 45_extract_verb_case.py | sort | uniq -c | sort -nr | grep " なる" # 「なる」 hits also 「異なる」
 # python 45_extract_verb_case.py | sort | uniq -c | sort -nr | grep "与える"

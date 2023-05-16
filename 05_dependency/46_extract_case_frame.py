@@ -39,7 +39,7 @@ for sentence_node in root:
                     cases.append((morph.surface, chunk))
 
         cases.sort(key=lambda v: v[0])
-        tab_separeted_cases = "\t".join(map(lambda v: v[0], cases))
-        tab_separeted_chunks = "\t".join(map(lambda v: v[1].to_text(), cases))
+        space_separated_cases = " ".join(map(lambda v: v[0], cases))
+        space_separated_chunks = " ".join(map(lambda v: v[1].to_text(), cases))
 
-        print(f"{verb_morph.base}\t{tab_separeted_cases}\t{tab_separeted_chunks}")
+        print(f"{verb_morph.base} {space_separated_cases} {space_separated_chunks}")
