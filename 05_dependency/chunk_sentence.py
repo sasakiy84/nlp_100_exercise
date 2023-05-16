@@ -67,10 +67,14 @@ class Sentece(object):
             if chunk.id == id:
                 return chunk
 
-    def find_chunk_by_dst_id(self, id: int) -> Chunk | None:
+    def find_chunks_by_dst_id(self, id: int) -> list[Chunk]:
+        result: list[Chunk] = []
+
         for chunk in self.chunks:
             if chunk.dst == id:
-                return copy(chunk)
+                result.append(copy(chunk))
+
+        return result
 
     def dependency_as_text(self, exclude_pos: list[str] = [], divider=" -> ", required_pos_in_src: list[str] = [], required_pos_in_dst: list[str] = []) -> str:
         rows: list[str] = []
@@ -110,7 +114,8 @@ class Sentece(object):
         return "\n".join(rows)
 
     def construct_tree(self) -> Any:
-        root = self.find_chunk_by_dst_id(-1)
+        # root node is expected to always exist
+        root = self.find_chunks_by_dst_id(-1)[0]
 
         def construct_tree_partial(chunk: Chunk):
             children = []
