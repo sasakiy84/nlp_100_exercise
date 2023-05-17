@@ -1,4 +1,10 @@
-
+"""
+Improve the program of Problem 45 to append clause that depend on a predicate to a predicate and cases, divided by tab.
+In addition to Problem 45 specification, the following need to be satisficated.
+- Clause is the list of words that depends on a predicate
+- If clauses that depend on a predicate are multiple, print all clauses with space-separated format and dictionary order.
+https://nlp100.github.io/ja/ch05.html#46-%E5%8B%95%E8%A9%9E%E3%81%AE%E6%A0%BC%E3%83%95%E3%83%AC%E3%83%BC%E3%83%A0%E6%83%85%E5%A0%B1%E3%81%AE%E6%8A%BD%E5%87%BA
+"""
 from chunk_sentence import Chunk
 from typing import Tuple
 

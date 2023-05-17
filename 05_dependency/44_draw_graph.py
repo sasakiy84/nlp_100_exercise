@@ -8,6 +8,9 @@ https://nlp100.github.io/en/ch05.html#44-visualize-dependency-trees
 import load_data
 from chunk_sentence import Sentece
 
+# you have to install graphiz
+# see instalation manual
+# https://graphviz.org/download/
 import pydot
 
 root = load_data.load()

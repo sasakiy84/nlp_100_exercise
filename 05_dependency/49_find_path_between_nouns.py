@@ -1,3 +1,7 @@
+"""
+
+https://nlp100.github.io/ja/ch05.html#49-%E5%90%8D%E8%A9%9E%E9%96%93%E3%81%AE%E4%BF%82%E3%82%8A%E5%8F%97%E3%81%91%E3%83%91%E3%82%B9%E3%81%AE%E6%8A%BD%E5%87%BA
+"""
 import copy
 from typing import Tuple
 from chunk_sentence import Chunk, Sentece

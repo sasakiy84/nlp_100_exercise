@@ -1,4 +1,13 @@
+"""
+Focus only on cases where a verb takes a noun that connects to a サ変 verb in the object case(ヲ格).
+Improve the program of Problem 46 to satisfy the following.
+- proccess only if a clause is composed of "サ変接続名詞 + を(particle)" 
+- predicate is "サ変接続名詞 + を + base form of verb", and use first verb in the clause.
+- If clauses that have a case and depend on predicate are multiple, print all cases with space-separated format, and dictionary order.
+- If clauses that depend on a predicate are multiple, print all clauses with space-separated format and dictionary order.
 
+https://nlp100.github.io/ja/ch05.html#47-%E6%A9%9F%E8%83%BD%E5%8B%95%E8%A9%9E%E6%A7%8B%E6%96%87%E3%81%AE%E3%83%9E%E3%82%A4%E3%83%8B%E3%83%B3%E3%82%B0
+"""
 from chunk_sentence import Chunk
 from typing import Tuple
 
@@ -68,7 +77,7 @@ for sentence_node in root:
                 map(lambda v: v[1].to_text(), cases))
 
             print(
-                f"{verb_phrase} {space_separated_cases} {space_separated_chunks}")
+                f"{verb_phrase}\t{space_separated_cases} {space_separated_chunks}")
 
 # check with unix command
 # python 47_mining.py | grep "学習を行う"

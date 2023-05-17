@@ -1,12 +1,17 @@
 """
+Research the cases(格) that can appear with a predicate(述語) by using this wikipedia document as corpus.
+See a verb as a predicate, and a particle(助詞) as a case, and print them by tab-separated format.
+Following specification need to be satisfied.
+- In verb-included clause, define a base format of the first verb as a predict
+- Define a particle that depends on a predicate as a case
+- If clauses that have a case and depend on predicate are multiple, print all cases with space-separated format, and dictionary order.
 https://nlp100.github.io/ja/ch05.html#45-%E5%8B%95%E8%A9%9E%E3%81%AE%E6%A0%BC%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3%E3%81%AE%E6%8A%BD%E5%87%BA
 """
 
-from chunk import Chunk
 from typing import Tuple
 
 from morph import Morph
-from chunk_sentence import Sentece
+from chunk_sentence import Chunk, Sentece
 import load_data
 
 root = load_data.load()
@@ -42,7 +47,7 @@ for sentence_node in root:
         cases.sort()
         space_separated_cases = " ".join(cases)
 
-        print(f"{verb_morph.base} {space_separated_cases}")
+        print(f"{verb_morph.base}\t{space_separated_cases}")
 
 # unix command comfilmination
 # python 45_extract_verb_case.py | sort | uniq -c | sort -nr | head -n 10

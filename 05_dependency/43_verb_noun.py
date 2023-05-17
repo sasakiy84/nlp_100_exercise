@@ -1,11 +1,12 @@
 """
 Japanese ver
-Extract all the pairs of src including a noun and dst including a verb chunks with tab-separated format.
-Symbols such as "句読点" have to be excluded.
+Extract all the pairs of source clause that has a noun and destination clause that have a verb,  with tab-separated format.
+Marks such as punctuation have to be excluded.
 https://nlp100.github.io/ja/ch05.html#43-%E5%90%8D%E8%A9%9E%E3%82%92%E5%90%AB%E3%82%80%E6%96%87%E7%AF%80%E3%81%8C%E5%8B%95%E8%A9%9E%E3%82%92%E5%90%AB%E3%82%80%E6%96%87%E7%AF%80%E3%81%AB%E4%BF%82%E3%82%8B%E3%82%82%E3%81%AE%E3%82%92%E6%8A%BD%E5%87%BA
 
 English ver
 Show all pairs of verb governors (parents) and their noun dependents (children) from all sentences in the text.
+https://nlp100.github.io/en/ch05.html#43-show-verb-governors-and-noun-dependents
 """
 
 from chunk_sentence import Sentece
