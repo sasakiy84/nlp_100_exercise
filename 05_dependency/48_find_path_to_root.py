@@ -1,7 +1,3 @@
-from chunk_sentence import Chunk
-from typing import Tuple
-
-from morph import Morph
 from chunk_sentence import Sentece
 import load_data
 
