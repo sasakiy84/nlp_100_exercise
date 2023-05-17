@@ -81,6 +81,7 @@ for sentence_node in root:
                 k = c
                 break
 
+        # print the path with specified format
         path_first_to_k = [first_chunk]
         path_second_to_k = [second_chunk]
         for c in first_chunk_path_to_root[1:]:

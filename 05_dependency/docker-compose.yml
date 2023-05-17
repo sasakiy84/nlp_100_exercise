@@ -10,8 +10,8 @@ services:
         source: .
         target: /data
     # # export as xml
-    # command: sh -c "cat /data/source.txt | cabocha -f3 -o /data/parsed.xml"
+    command: sh -c "cat /data/source_formatted.txt | cabocha -f3 -o /data/parsed.xml"
     # export as lattice
-    # command: sh -c "cat /data/source.txt | cabocha -f1 -o /data/parsed.txt"
+    # command: sh -c "cat /data/source_formatted.txt | cabocha -f1 -o /data/parsed.txt"
     # export as tree
-    command: sh -c "cat /data/source.txt | cabocha -f0 -o /data/tree.txt"
+    # command: sh -c "cat /data/source_formatted.txt | cabocha -f0 -o /data/tree.txt"
