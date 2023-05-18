@@ -1,4 +1,12 @@
 """
+Extract the shortest paths between all pairs of noun clauses in a sentence
+If index of noun clauses are i, j(i < j), the dependency path satisfy the following specifications.
+- Same as Problem 48, Join every element on the path by " -> "
+- Noun phrases in the clause i and j need to be replaced to X and Y
+
+A shape of dependency path can be following 2 pattern.
+- The case where clause j exists on the path from clause i to the root: show the path from clause i to j.
+- The case where the paths from each noun clause to the root have the same clause k: join the paths from i or j to k(exluding k) and k by "|" , and show it
 
 https://nlp100.github.io/ja/ch05.html#49-%E5%90%8D%E8%A9%9E%E9%96%93%E3%81%AE%E4%BF%82%E3%82%8A%E5%8F%97%E3%81%91%E3%83%91%E3%82%B9%E3%81%AE%E6%8A%BD%E5%87%BA
 """

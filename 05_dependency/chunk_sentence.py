@@ -1,6 +1,5 @@
 
 from copy import copy
-from re import M
 from typing import Any, TypedDict
 from xml.etree.ElementTree import Element
 
@@ -23,6 +22,10 @@ class Chunk(object):
         self.srcs = init_args['srcs']
 
     def to_text(self, exclude_pos: list[str] = []) -> str:
+        """
+        Convert morphs member to text.
+        The specified excluded pos is removed 
+        """
         text = ""
         for m in self.morphs:
             if m.pos in exclude_pos:
@@ -32,8 +35,18 @@ class Chunk(object):
 
 
 class Sentece(object):
+    """
+    Represents a sentence, a list of chunks.
+    """
+
     def __init__(self, sentence: Element) -> None:
-        # register Chunks except for srcs
+        """
+        Receive the parsed XML element that represents a sentence, has chunks as children and token as children of chunks.
+        When initialized, the XML element become a list of chunks, and a dependency tree is constructed  
+        """
+
+        # initialize chunks by 2 steps
+        # 1. register Chunks except for srcs
         chunk_list: list[Chunk] = []
         for chunk in sentence:
             morph_list: list[Morph] = []
@@ -47,7 +60,7 @@ class Sentece(object):
                 "srcs": []
             }))
 
-        # register srcs
+        # 2. register srcs
         for chunk in chunk_list:
             dst = chunk.dst
             if dst == -1:
@@ -77,9 +90,16 @@ class Sentece(object):
         return result
 
     def dependency_as_text(self, exclude_pos: list[str] = [], divider=" -> ", required_pos_in_src: list[str] = [], required_pos_in_dst: list[str] = []) -> str:
+        """
+        Get text that represents dependency.
+        It is like a table format.
+        You can customize its shape by adjusting the arguments
+        """
+
         rows: list[str] = []
 
         for chunk in self.chunks:
+            # chech if this chunk meet the specified requirement
             meet_requirement_of_src = False
             meet_requirement_of_dst = False
 
@@ -92,7 +112,6 @@ class Sentece(object):
                     continue
 
             dst_chunk = self.find_chunk_by_id(chunk.dst)
-
             if len(required_pos_in_dst) != 0:
                 if dst_chunk == None:
                     continue
@@ -104,6 +123,7 @@ class Sentece(object):
                 if meet_requirement_of_dst == False:
                     continue
 
+            # store a valid pair of chunk text as a table row
             if dst_chunk == None:
                 rows.append(
                     f"{chunk.to_text(exclude_pos=exclude_pos)}{divider}ROOT")
@@ -114,10 +134,17 @@ class Sentece(object):
         return "\n".join(rows)
 
     def construct_tree(self) -> Any:
+        """
+        Construct a dependency tree by using recursive function.
+        The tree can be printed by `self.tree_as_text` function. 
+        """
         # root node is expected to always exist
         root = self.find_chunks_by_dst_id(-1)[0]
 
         def construct_tree_partial(chunk: Chunk):
+            """
+            receive target chunk and register its children as chunk-based object recursively, and return it.
+            """
             children = []
             for src_id in chunk.srcs:
                 children.append(self.find_chunk_by_id(src_id))
@@ -138,6 +165,11 @@ class Sentece(object):
         return construct_tree_partial(root)
 
     def tree_as_text(self, indent_str="    ", indent_last=" |--") -> str:
+        """
+        Get text that represents dependency.
+        It is like a tree format.
+        You can customize its shape by adjusting the arguments
+        """
         rows: list[str] = []
 
         def walk_tree(node, depth):
@@ -151,6 +183,9 @@ class Sentece(object):
         return "\n".join(rows)
 
     def gather_chunks_to_root(self, origin_id: int) -> list[Chunk]:
+        """
+        Walk the constructed tree from the specified chunk to the root, and return all the chunks in the path.
+        """
         path: list[Chunk] = []
 
         def up_tree(child_id):
