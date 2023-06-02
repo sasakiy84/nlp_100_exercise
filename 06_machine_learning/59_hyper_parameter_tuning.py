@@ -25,8 +25,9 @@ y_valid = valid_data["category"]
 
 # this would be correct code, but executing this code failed, displaying "killed" after 40 min wait time.
 # the reason can be a lack of memory.
-params = {"solver": ['lbfgs', 'liblinear',
-                     'newton-cg', 'newton-cholesky', 'sag', 'saga']}
+params = {"solver": ['sag']}
+# params = {"solver": ['lbfgs', 'liblinear',
+#                      'newton-cg', 'sag', 'saga']}
 
 # do grid search
 gs_model = GridSearchCV(LogisticRegression(
