@@ -1,8 +1,7 @@
-import matplotlib.pyplot as plt
 import load_tensor
-import numpy as np
 import torch
 from torch import nn
+from utils import make_graph
 
 
 def calc_acc(y_pred_prob, y_true) -> float:
@@ -15,18 +14,6 @@ def calc_acc(y_pred_prob, y_true) -> float:
     total_size = y_true.size(0)
     acc = (correct_num / total_size) * 100
     return acc
-
-
-def make_graph(value_dict: dict, value_name: str) -> None:
-    """value_dictに関するgraphを生成し、保存する。"""
-    for phase in ["train", "valid"]:
-        plt.plot(value_dict[phase], label=phase)
-    plt.xlabel("epoch")
-    plt.ylabel(value_name)
-    plt.title(f"{value_name} per epoch")
-    plt.legend()
-    plt.savefig(f"75_{value_name}.png")
-    plt.close()
 
 
 train_X, train_Y = load_tensor.load_tensor("train")
@@ -82,5 +69,5 @@ losses = {"train": train_losses, "valid": valid_losses}
 
 accs = {"train": train_accs, "valid": valid_accs}
 
-make_graph(losses, "losses")
-make_graph(accs, "accs")
+make_graph(losses, "losses", 75)
+make_graph(accs, "accs", 75)
