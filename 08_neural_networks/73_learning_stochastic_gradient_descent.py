@@ -1,6 +1,6 @@
 from load_tensor import load_tensor
 import torch
-from torch import nn
+from torch import Tensor, nn
 
 
 X, Y = load_tensor("train")
@@ -8,17 +8,23 @@ X, Y = load_tensor("train")
 net = nn.Linear(300, 4)
 
 loss = nn.CrossEntropyLoss()
+# SGD is abbreviation for stochastic gradient descent
+# "確率的勾配降下法" in Japanese
+# set `net` parameter as target of optimization
+# lr is learning rate, which defines how much parameters are changed every epoch.
 optimizer = torch.optim.SGD(net.parameters(), lr=0.01)
 
 print("Before")
 print(net.state_dict()["weight"])
 
 for step in range(100):
+    # reset gradient!!
     optimizer.zero_grad()
 
     y_pred = net(X)
 
-    output = loss(y_pred, Y)
+    output: Tensor = loss(y_pred, Y)
+    # update gradient!!
     output.backward()
 
     optimizer.step()
@@ -26,6 +32,7 @@ for step in range(100):
 print("After")
 print(net.state_dict()["weight"])
 
+# why is extension "pth"?
 net_path = "73_net.pth"
 torch.save(net.state_dict(), net_path)
 

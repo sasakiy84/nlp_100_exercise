@@ -3,7 +3,7 @@ import time
 import load_tensor
 
 import torch
-from torch import nn
+from torch import Tensor, nn
 from torch.utils.data import DataLoader
 
 from utils import TextDataset
@@ -49,7 +49,8 @@ for batchsize in batchsizes:
 
             dataloader_y_pred_prob = net(dataloader_x)
 
-            dataloader_loss = loss(dataloader_y_pred_prob, dataloader_y)
+            dataloader_loss: Tensor = loss(
+                dataloader_y_pred_prob, dataloader_y)
             dataloader_loss.backward()
 
             optimizer.step()

@@ -16,12 +16,8 @@ test_X, test_Y = load_tensor.load_tensor("test")
 
 # predict train data
 train_pred_prob = net(train_X)
-_, train_pred = torch.max(train_pred_prob, 1)
 
-# calc accurary of train predication
-train_correct_num = (train_pred == train_Y).sum().item()
-train_size = train_Y.size(0)
-train_acc = (train_correct_num / train_size) * 100
+train_acc = calc_acc(train_pred_prob, train_Y)
 print(f"train acc:{train_acc: .2f}%")
 
 # predict test data
@@ -29,5 +25,5 @@ test_pred_prob = net(test_X)
 
 test_acc = calc_acc(test_pred_prob, test_Y)
 print(f"test acc:{test_acc: .2f}%")
-# train acc: 57.89%
-# test acc: 58.85%
+# train acc: 64.37%
+# test acc: 64.62%

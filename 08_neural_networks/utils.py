@@ -19,7 +19,7 @@ def calc_acc(y_pred_prob, y_true) -> float:
     # get the highest probability
     _, y_pred = torch.max(y_pred_prob, 1)
 
-    correct_num = (y_pred == y_true).sum().item()
+    correct_num = (y_pred == y_true).sum()
     total_size = y_true.size(0)
     acc = (correct_num / total_size) * 100
     return acc

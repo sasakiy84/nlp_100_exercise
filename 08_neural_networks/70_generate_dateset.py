@@ -59,9 +59,4 @@ for name in name_list:
 for name in name_list:
     print(dfs[name]["TITLE_VECTOR"].head())
     dfs[name][["TITLE_VECTOR", "CATEGORY"]].to_csv(f"{name}.csv")
-
     dfs[name][["TITLE_VECTOR", "CATEGORY"]].to_pickle(f"{name}.pickle")
-    # # 特徴量行列
-    # np.save(f"{name}_vector", dfs[name]["TITLE_VECTOR"].to_numpy())
-    # # ラベル
-    # np.save(f"{name}_label", dfs[name]["CATEGORY"].to_numpy())
