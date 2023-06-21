@@ -30,7 +30,7 @@ train_X, train_Y, valid_X, valid_Y = train_X.to(device), train_Y.to(
 net = NetThreeLayer(in_shape=train_X.shape[1], out_shape=4).to(device)
 
 loss = nn.CrossEntropyLoss()
-optimizer = torch.optim.SGD(net.parameters(), lr=0.01)
+optimizer = torch.optim.Adam(net.parameters(), lr=0.01)
 
 dataset = TextDataset(train_X, train_Y)
 
@@ -63,8 +63,8 @@ for epoch in range(100):
 
         optimizer.step()
 
-    train_acc = calc_acc(net, train_X, train_Y)
-    valid_acc = calc_acc(net, valid_X, valid_Y)
+    train_acc = calc_acc(train_X, train_Y)
+    valid_acc = calc_acc(valid_X, valid_Y)
 
     train_accs.append(train_acc)
     train_losses.append(train_running_loss)

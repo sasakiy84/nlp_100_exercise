@@ -17,7 +17,7 @@ train_accs = []
 valid_losses = []
 valid_accs = []
 
-for epoch in range(100):
+for epoch in range(1000):
     optimizer.zero_grad()
 
     # predicat train data
@@ -48,5 +48,5 @@ for epoch in range(100):
 losses = {"train": train_losses, "valid": valid_losses}
 accs = {"train": train_accs, "valid": valid_accs}
 
-make_graph(losses, "losses", 75)
-make_graph(accs, "accs", 75)
+make_graph(losses, "losses", 751)
+make_graph(accs, "accs", 751)

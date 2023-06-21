@@ -6,7 +6,7 @@ import torch
 from torch import Tensor, nn
 from torch.utils.data import DataLoader
 
-from utils import TextDataset, calc_acc
+from utils import TextDataset, calc_acc, make_graph
 from models import NetSingleLayer
 
 
@@ -17,16 +17,19 @@ valid_X, valid_Y = load_tensor.load_tensor("valid")
 dataset = TextDataset(train_X, train_Y)
 valid_losses = []
 valid_accs = []
+train_losses = []
+train_accs = []
 
-batchsizes = [1, 2, 4, 8, 16, 32, 64, 128]
+# we can decrease an amount of memory usage when batch size is small
+batchsizes = [1]
 for batchsize in batchsizes:
-    net = NetSingleLayer(in_shape=train_X.shape[1], out_shape=4)
+    net = nn.Linear(300, 4)
 
     loss = nn.CrossEntropyLoss()
     optimizer = torch.optim.SGD(net.parameters(), lr=0.01)
     loader = DataLoader(dataset, batch_size=batchsize, shuffle=True)
 
-    for epoch in range(1):
+    for epoch in range(100):
 
         start = time.time()
 
@@ -44,17 +47,29 @@ for batchsize in batchsizes:
             optimizer.step()
 
         calcuration_time = time.time() - start
-        print(f"batchsize{batchsize} time:{calcuration_time: .2f}")
+        # print(f"batchsize{batchsize} time:{calcuration_time: .2f}")
+
+        train_y_pred_prob = net(train_X)
+        train_acc = calc_acc(train_y_pred_prob, train_Y)
 
         valid_y_pred_prob = net(valid_X)
         valid_acc = calc_acc(valid_y_pred_prob, valid_Y)
         valid_loss = loss(valid_y_pred_prob, valid_Y)
+        train_loss = loss(train_y_pred_prob, train_Y)
+
+        print(f"{batchsize}: acc={valid_acc} loss={valid_loss}")
+        train_accs.append(train_acc)
+        train_losses.append(train_loss)
         valid_accs.append(valid_acc)
-        valid_losses.append(valid_loss.data)
+        valid_losses.append(valid_loss)
 
+losses = {"train": train_losses, "valid": valid_losses}
+accs = {"train": train_accs, "valid": valid_accs}
+make_graph(losses, "losses", 77)
+make_graph(accs, "accs", 77)
 
-for i in range(len(batchsizes)):
-    print(f"{batchsizes[i]}: acc={valid_accs[i]} loss={valid_losses[i]}")
+# for i in range(len(batchsizes)):
+#     print(f"{batchsizes[i]}: acc={valid_accs[i]} loss={valid_losses[i]}")
 
 
 # batchsize1 time: 129.30
